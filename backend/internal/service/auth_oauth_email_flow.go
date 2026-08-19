@@ -85,6 +85,9 @@ func (s *AuthService) validateOAuthRegistrationInvitation(ctx context.Context, i
 // third-party signup and binding flows. This is intentionally independent from
 // the global registration email verification toggle.
 func (s *AuthService) VerifyOAuthEmailCode(ctx context.Context, email, verifyCode string) error {
+	if s == nil || s.settingService == nil || !s.settingService.IsEmailVerifyEnabled(ctx) {
+		return nil
+	}
 	email = strings.TrimSpace(strings.ToLower(email))
 	verifyCode = strings.TrimSpace(verifyCode)
 
@@ -113,7 +116,7 @@ func (s *AuthService) RegisterOAuthEmailAccount(
 	if s == nil {
 		return nil, nil, ErrServiceUnavailable
 	}
-	if s.settingService == nil || (!s.settingService.IsRegistrationEnabled(ctx) && !s.canBypassRegistrationDisabledForOAuth(ctx, signupSource)) {
+	if s.settingService == nil || (!s.settingService.IsSSORegistrationEnabled(ctx) && !s.canBypassRegistrationDisabledForOAuth(ctx, signupSource)) {
 		return nil, nil, ErrRegDisabled
 	}
 

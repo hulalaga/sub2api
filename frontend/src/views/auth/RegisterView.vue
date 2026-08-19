@@ -385,6 +385,7 @@ const showPassword = ref<boolean>(false)
 
 // Public settings
 const registrationEnabled = ref<boolean>(true)
+const ssoRegistrationEnabled = ref<boolean>(true)
 const emailVerifyEnabled = ref<boolean>(false)
 const promoCodeEnabled = ref<boolean>(true)
 const invitationCodeEnabled = ref<boolean>(false)
@@ -520,6 +521,7 @@ onMounted(async () => {
   try {
     const settings = await getPublicSettings()
     registrationEnabled.value = settings.registration_enabled
+    ssoRegistrationEnabled.value = settings.sso_registration_enabled
     emailVerifyEnabled.value = settings.email_verify_enabled
     promoCodeEnabled.value = settings.promo_code_enabled
     invitationCodeEnabled.value = settings.invitation_code_enabled
