@@ -18,6 +18,7 @@ function createDeferred<T>() {
 function createPublicSettings(overrides: Partial<PublicSettings> = {}): PublicSettings {
   return {
     registration_enabled: false,
+    sso_registration_enabled: false,
     email_verify_enabled: false,
     force_email_on_third_party_signup: false,
     registration_email_suffix_whitelist: [],
@@ -439,6 +440,7 @@ describe('useAppStore', () => {
     it('fetchPublicSettings(force) 会同步更新运行时注入配置', async () => {
       vi.mocked(getPublicSettings).mockResolvedValue({
         registration_enabled: false,
+        sso_registration_enabled: false,
         email_verify_enabled: false,
         registration_email_suffix_whitelist: [],
         promo_code_enabled: true,
