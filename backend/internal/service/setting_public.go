@@ -157,6 +157,7 @@ func (s *SettingService) GetFrontendURL(ctx context.Context) string {
 func (s *SettingService) GetPublicSettings(ctx context.Context) (*PublicSettings, error) {
 	keys := []string{
 		SettingKeyRegistrationEnabled,
+		SettingKeySSORegistrationEnabled,
 		SettingKeyEmailVerifyEnabled,
 		SettingKeyForceEmailOnThirdPartySignup,
 		SettingKeyRegistrationEmailSuffixWhitelist,
@@ -297,6 +298,7 @@ func (s *SettingService) GetPublicSettings(ctx context.Context) (*PublicSettings
 
 	return &PublicSettings{
 		RegistrationEnabled:                 settings[SettingKeyRegistrationEnabled] == "true",
+		SSORegistrationEnabled:              settings[SettingKeySSORegistrationEnabled] == "true",
 		EmailVerifyEnabled:                  emailVerifyEnabled,
 		ForceEmailOnThirdPartySignup:        settings[SettingKeyForceEmailOnThirdPartySignup] == "true",
 		RegistrationEmailSuffixWhitelist:    registrationEmailSuffixWhitelist,
@@ -547,6 +549,7 @@ func (s *SettingService) IsUserErrorViewAllowed(ctx context.Context) bool {
 // drift automatically (see setting_service_injection_test.go).
 type PublicSettingsInjectionPayload struct {
 	RegistrationEnabled                 bool                     `json:"registration_enabled"`
+	SSORegistrationEnabled              bool                     `json:"sso_registration_enabled"`
 	EmailVerifyEnabled                  bool                     `json:"email_verify_enabled"`
 	RegistrationEmailSuffixWhitelist    []string                 `json:"registration_email_suffix_whitelist"`
 	RegistrationEmailDomainQuotaEnabled bool                     `json:"registration_email_domain_quota_enabled"`
@@ -635,6 +638,7 @@ func (s *SettingService) GetPublicSettingsForInjection(ctx context.Context) (any
 
 	return &PublicSettingsInjectionPayload{
 		RegistrationEnabled:                 settings.RegistrationEnabled,
+		SSORegistrationEnabled:              settings.SSORegistrationEnabled,
 		EmailVerifyEnabled:                  settings.EmailVerifyEnabled,
 		RegistrationEmailSuffixWhitelist:    settings.RegistrationEmailSuffixWhitelist,
 		RegistrationEmailDomainQuotaEnabled: settings.RegistrationEmailDomainQuotaEnabled,
