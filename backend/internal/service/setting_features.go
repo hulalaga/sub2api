@@ -24,6 +24,16 @@ func (s *SettingService) IsRegistrationEnabled(ctx context.Context) bool {
 	return value == "true"
 }
 
+// IsSSORegistrationEnabled 检查是否开放注册
+func (s *SettingService) IsSSORegistrationEnabled(ctx context.Context) bool {
+	value, err := s.settingRepo.GetValue(ctx, SettingKeySSORegistrationEnabled)
+	if err != nil {
+		// 安全默认：如果设置不存在或查询出错，默认关闭注册
+		return false
+	}
+	return value == "true"
+}
+
 // IsEmailVerifyEnabled 检查是否开启邮件验证
 func (s *SettingService) IsEmailVerifyEnabled(ctx context.Context) bool {
 	value, err := s.settingRepo.GetValue(ctx, SettingKeyEmailVerifyEnabled)
