@@ -26,6 +26,25 @@ builds:
       - -X main.Date={{.Date}}
       - -X main.BuildType=release
 
+  - id: sub2api-debug
+    dir: backend
+    main: ./cmd/server
+    binary: sub2api-debug
+    flags:
+      - -tags=embed
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+    goarch:
+      - amd64
+    gcflags:
+      - all=-N -l
+    ldflags:
+      - -X main.Commit={{.Commit}}
+      - -X main.Date={{.Date}}
+      - -X main.BuildType=debug
+
 # 跳过 archives
 archives: []
 
@@ -52,6 +71,8 @@ dockers:
       - backend/resources
     build_flag_templates:
       - "--platform=linux/amd64"
+      - "--provenance=false"
+      - "--sbom=false"
       - "--label=org.opencontainers.image.version={{ .Version }}"
       - "--label=org.opencontainers.image.revision={{ .Commit }}"
       - "--label=org.opencontainers.image.source=https://github.com/{{ .Env.GITHUB_REPO_OWNER }}/{{ .Env.GITHUB_REPO_NAME }}"
@@ -71,8 +92,6 @@ release:
   header: |
     > AI API Gateway Platform - 将 AI 订阅配额分发和管理
     > ⚡ Simple Release: 仅包含 x86_64 GHCR 镜像
-
-    {{ .Env.TAG_MESSAGE }}
 
   footer: |
     ---
