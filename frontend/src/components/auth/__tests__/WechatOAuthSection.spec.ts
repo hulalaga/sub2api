@@ -54,6 +54,7 @@ type WeChatPublicSettings = PublicSettings & {
 function buildPublicSettings(overrides: Partial<WeChatPublicSettings> = {}): WeChatPublicSettings {
   return {
     registration_enabled: true,
+    sso_registration_enabled: true,
     email_verify_enabled: false,
     force_email_on_third_party_signup: false,
     registration_email_suffix_whitelist: [],

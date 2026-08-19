@@ -35,6 +35,9 @@ func diffSettings(before *service.SystemSettings, after *service.SystemSettings,
 	if before.RegistrationEnabled != after.RegistrationEnabled {
 		changed = append(changed, "registration_enabled")
 	}
+	if before.SSORegistrationEnabled != after.SSORegistrationEnabled {
+		changed = append(changed, "sso_registration_enabled")
+	}
 	if before.EmailVerifyEnabled != after.EmailVerifyEnabled {
 		changed = append(changed, "email_verify_enabled")
 	}
