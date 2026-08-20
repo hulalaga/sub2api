@@ -93,6 +93,8 @@ var (
 	DefaultUpdatedAt func() time.Time
 	// UpdateDefaultUpdatedAt holds the default value on update for the "updated_at" field.
 	UpdateDefaultUpdatedAt func() time.Time
+	// DefaultPublicModel holds the default value on creation for the "public_model" field.
+	DefaultPublicModel string
 	// PublicModelValidator is a validator for the "public_model" field. It is called by the builders before save.
 	PublicModelValidator func(string) error
 	// DefaultMatchType holds the default value on creation for the "match_type" field.
