@@ -337,7 +337,7 @@ type UpdateGroupRequest struct {
 }
 
 type CompositeRouteRequest struct {
-	PublicModel    string `json:"public_model" binding:"required"`
+	PublicModel    string `json:"public_model"`
 	MatchType      string `json:"match_type" binding:"omitempty,oneof=exact prefix"`
 	TargetPlatform string `json:"target_platform" binding:"required,concrete_platform"`
 	UpstreamModel  string `json:"upstream_model"`
