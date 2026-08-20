@@ -879,22 +879,10 @@ func init() {
 	compositemodelroute.UpdateDefaultUpdatedAt = compositemodelrouteDescUpdatedAt.UpdateDefault.(func() time.Time)
 	// compositemodelrouteDescPublicModel is the schema descriptor for public_model field.
 	compositemodelrouteDescPublicModel := compositemodelrouteFields[1].Descriptor()
+	// compositemodelroute.DefaultPublicModel holds the default value on creation for the public_model field.
+	compositemodelroute.DefaultPublicModel = compositemodelrouteDescPublicModel.Default.(string)
 	// compositemodelroute.PublicModelValidator is a validator for the "public_model" field. It is called by the builders before save.
-	compositemodelroute.PublicModelValidator = func() func(string) error {
-		validators := compositemodelrouteDescPublicModel.Validators
-		fns := [...]func(string) error{
-			validators[0].(func(string) error),
-			validators[1].(func(string) error),
-		}
-		return func(public_model string) error {
-			for _, fn := range fns {
-				if err := fn(public_model); err != nil {
-					return err
-				}
-			}
-			return nil
-		}
-	}()
+	compositemodelroute.PublicModelValidator = compositemodelrouteDescPublicModel.Validators[0].(func(string) error)
 	// compositemodelrouteDescMatchType is the schema descriptor for match_type field.
 	compositemodelrouteDescMatchType := compositemodelrouteFields[2].Descriptor()
 	// compositemodelroute.DefaultMatchType holds the default value on creation for the match_type field.

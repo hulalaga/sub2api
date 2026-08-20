@@ -4201,7 +4201,6 @@
                 v-model.trim="compositeRouteForm.public_model"
                 type="text"
                 class="input"
-                required
                 placeholder="openrouter/gpt-5"
               />
             </div>
@@ -6518,10 +6517,6 @@ const editCompositeRoute = (route: CompositeModelRoute) => {
 
 const saveCompositeRoute = async () => {
   if (!compositeRoutesGroup.value) return;
-  if (!compositeRouteForm.public_model.trim()) {
-    appStore.showError(t("admin.groups.compositeRoutes.publicModelRequired"));
-    return;
-  }
   compositeRouteSaving.value = true;
   try {
     const payload = toCompositeRouteInput();
