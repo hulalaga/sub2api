@@ -206,9 +206,6 @@ func (s *adminServiceImpl) compositeRouteBelongsToGroup(ctx context.Context, gro
 
 func compositeRouteFromInput(groupID int64, input CompositeRouteInput) (*CompositeModelRoute, error) {
 	input = normalizeCompositeRouteInput(input)
-	if input.PublicModel == "" {
-		return nil, fmt.Errorf("public_model is required")
-	}
 	if !isConcreteRequestPlatform(input.TargetPlatform) {
 		return nil, fmt.Errorf("target_platform must be a concrete provider")
 	}

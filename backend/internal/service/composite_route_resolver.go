@@ -85,9 +85,6 @@ func matchCompositeRoute(routes []CompositeModelRoute, model, endpoint string) (
 		}
 		route.MatchType = normalizeCompositeRouteMatchType(route.MatchType)
 		publicModel := strings.TrimSpace(route.PublicModel)
-		if publicModel == "" {
-			continue
-		}
 
 		matchStrength := 0
 		prefixLen := len(publicModel)

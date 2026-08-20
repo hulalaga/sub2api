@@ -36,7 +36,7 @@ func (CompositeModelRoute) Fields() []ent.Field {
 		field.Int64("group_id"),
 		field.String("public_model").
 			MaxLen(200).
-			NotEmpty().
+			Default("").
 			Comment("Client-facing model identifier or prefix."),
 		field.String("match_type").
 			MaxLen(20).
