@@ -77,6 +77,14 @@ func (_c *CompositeModelRouteCreate) SetPublicModel(v string) *CompositeModelRou
 	return _c
 }
 
+// SetNillablePublicModel sets the "public_model" field if the given value is not nil.
+func (_c *CompositeModelRouteCreate) SetNillablePublicModel(v *string) *CompositeModelRouteCreate {
+	if v != nil {
+		_c.SetPublicModel(*v)
+	}
+	return _c
+}
+
 // SetMatchType sets the "match_type" field.
 func (_c *CompositeModelRouteCreate) SetMatchType(v string) *CompositeModelRouteCreate {
 	_c.mutation.SetMatchType(v)
@@ -230,6 +238,10 @@ func (_c *CompositeModelRouteCreate) defaults() error {
 		}
 		v := compositemodelroute.DefaultUpdatedAt()
 		_c.mutation.SetUpdatedAt(v)
+	}
+	if _, ok := _c.mutation.PublicModel(); !ok {
+		v := compositemodelroute.DefaultPublicModel
+		_c.mutation.SetPublicModel(v)
 	}
 	if _, ok := _c.mutation.MatchType(); !ok {
 		v := compositemodelroute.DefaultMatchType
